@@ -88,7 +88,9 @@ If you use [VS Code profiles](https://code.visualstudio.com/docs/configure/profi
 it into each profile you work in, for example `--profile Work`. An extension installed without
 `--profile` lands in the default profile only.
 
-Reload the VS Code window afterwards (**Developer: Reload Window**).
+Reload the VS Code window afterwards (**Developer: Reload Window**). This also restarts the Claude Code
+sessions in that window: Claude Code loads a newly installed or updated plugin only when a session
+starts, so running sessions keep the old hooks (or none) until then.
 
 ## Configuration
 
