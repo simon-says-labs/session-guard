@@ -1,6 +1,6 @@
 # Session Guard
 
-<p align="center"><b><a href="#deutsch">🇩🇪 Deutsch</a> · <a href="#english">🇬🇧 English</a></b></p>
+<p align="center"><b><a href="#deutsch">🇩🇪 Deutsch</a> · <a href="#english">🇬🇧 English</a> · <a href="docs/README.fr.md">🇫🇷 Français</a> · <a href="docs/README.it.md">🇮🇹 Italiano</a> · <a href="docs/README.es.md">🇪🇸 Español</a></b></p>
 
 > 🇩🇪 **Auf einen Blick sehen, welche Claude-Code-Sitzung dich braucht.** Session Guard zeigt in der
 > VS-Code-Statusleiste jede Sitzung, die auf dich wartet: rot bei Freigabe oder Frage, gelb, wenn eine Antwort fertig
