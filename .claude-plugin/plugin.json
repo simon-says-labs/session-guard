@@ -1,0 +1,14 @@
+{
+  "name": "claude-waechter",
+  "displayName": "Claude Wächter",
+  "version": "0.2.0",
+  "description": "Tells you which Claude Code session is waiting for you: status files for the VS Code status bar, a sound only when you are asked a question.",
+  "author": {
+    "name": "Simon Eckmiller",
+    "url": "https://github.com/SimonEckmiller"
+  },
+  "homepage": "https://github.com/SimonEckmiller/claude-waechter",
+  "repository": "https://github.com/SimonEckmiller/claude-waechter",
+  "license": "MIT",
+  "keywords": ["notifications", "status-bar", "vscode", "multi-session", "hooks"]
+}

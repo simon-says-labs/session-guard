@@ -1,0 +1,15 @@
+{
+  "name": "claude-waechter",
+  "description": "Claude Wächter: see which Claude Code session needs you.",
+  "owner": {
+    "name": "Simon Eckmiller",
+    "url": "https://github.com/SimonEckmiller"
+  },
+  "plugins": [
+    {
+      "name": "claude-waechter",
+      "source": "./",
+      "description": "Records waiting Claude Code sessions for the Claude Wächter VS Code extension and plays a sound when you are asked a question."
+    }
+  ]
+}

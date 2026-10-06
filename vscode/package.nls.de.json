@@ -1,0 +1,5 @@
+{
+  "displayName": "Claude Wächter",
+  "description": "Zeigt Claude-Code-Sitzungen, die auf dich warten, als farbige Einträge in der Statusleiste.",
+  "command.open": "Claude Wächter: Chat öffnen"
+}

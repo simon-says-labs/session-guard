@@ -1,0 +1,12 @@
+# build output
+dist/
+*.vsix
+
+# Python
+__pycache__/
+*.pyc
+
+# editors and OS
+.DS_Store
+.vscode/
+.idea/

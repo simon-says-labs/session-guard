@@ -1,0 +1,38 @@
+{
+  "name": "claude-waechter",
+  "displayName": "%displayName%",
+  "description": "%description%",
+  "version": "0.2.0",
+  "publisher": "simon-eckmiller",
+  "author": "Simon Eckmiller",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SimonEckmiller/claude-waechter"
+  },
+  "bugs": {
+    "url": "https://github.com/SimonEckmiller/claude-waechter/issues"
+  },
+  "homepage": "https://github.com/SimonEckmiller/claude-waechter#readme",
+  "keywords": ["claude", "claude code", "status bar", "notifications", "sessions"],
+  "categories": ["Other"],
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "main": "./extension.js",
+  "l10n": "./l10n",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "claudeWaechter.open",
+        "title": "%command.open%"
+      }
+    ]
+  },
+  "scripts": {
+    "test": "node --test ../tests/node/*.test.js"
+  }
+}

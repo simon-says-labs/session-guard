@@ -1,0 +1,5 @@
+{
+  "displayName": "Claude Wächter",
+  "description": "Shows Claude Code sessions that are waiting for you as coloured status bar entries.",
+  "command.open": "Claude Wächter: Open chat"
+}
