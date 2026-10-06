@@ -10,6 +10,8 @@ question.
 
 ![Status bar with one red and one yellow Claude Wächter entry](docs/screenshot.png)
 
+*The status bar with a session waiting for approval (red) and a finished one (yellow), here with the German UI.*
+
 > **Kurz auf Deutsch:** Claude Wächter zeigt in der VS-Code-Statusleiste, welche
 > Claude-Code-Sitzung auf dich wartet: rot bei Freigabe oder Frage, gelb, wenn eine Antwort
 > fertig ist. Ein Klick wechselt in die Sitzung. Ein Ton kommt nur, wenn dir eine Frage
