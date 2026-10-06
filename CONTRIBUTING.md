@@ -38,8 +38,8 @@ code --install-extension dist/session-guard-<version>.vsix
 
 - Keep changes focused. One topic per pull request.
 - Add or update tests for every behaviour change. A test should fail without your change.
-- Every user-visible string in the extension goes through `t(...)` and needs a German
-  translation in `vscode/l10n/bundle.l10n.de.json`. The test suite checks this.
+- Every user-visible string in the extension goes through `t(...)` and needs a translation in
+  every `vscode/l10n/bundle.l10n.<lang>.json` (de, fr, it, es). The test suite checks this.
 - The hook must never block Claude Code: it always exits with code 0 and uses the Python
   standard library only.
 - Update `CHANGELOG.md` under an `Unreleased` heading.

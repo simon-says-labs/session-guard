@@ -15,8 +15,9 @@ from xml.sax.saxutils import escape
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-FILES = ["package.json", "package.nls.json", "package.nls.de.json", "extension.js", "logic.js",
-         "l10n/bundle.l10n.de.json"]
+LANGUAGES = ["de", "fr", "it", "es"]
+FILES = (["package.json", "package.nls.json", "extension.js", "logic.js"]
+         + ["package.nls.%s.json" % l for l in LANGUAGES] + ["l10n/bundle.l10n.%s.json" % l for l in LANGUAGES])
 FROM_ROOT = {"README.md": "README.md", "LICENSE": "LICENSE.txt", "CHANGELOG.md": "CHANGELOG.md"}
 
 CONTENT_TYPES = """<?xml version="1.0" encoding="utf-8"?>

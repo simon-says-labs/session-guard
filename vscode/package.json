@@ -2,7 +2,7 @@
   "name": "session-guard",
   "displayName": "%displayName%",
   "description": "%description%",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "publisher": "simon-says-labs",
   "author": "Simon Eckmiller",
   "license": "MIT",

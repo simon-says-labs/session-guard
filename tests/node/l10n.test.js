@@ -1,4 +1,4 @@
-// Every user-visible string must have a German translation. Run: node --test tests/node/
+// Every user-visible string must be translated into every supported language. Run: node --test tests/node/*.test.js
 "use strict";
 const test = require("node:test");
 const assert = require("node:assert/strict");
@@ -7,22 +7,33 @@ const path = require("node:path");
 
 const root = path.join(__dirname, "../../vscode");
 const read = (name) => fs.readFileSync(path.join(root, name), "utf8");
+const LANGUAGES = ["de", "fr", "it", "es"];
 
-test("all t(...) strings and reason words exist in bundle.l10n.de.json", () => {
-  const german = JSON.parse(read("l10n/bundle.l10n.de.json"));
+function usedStrings() {
   const source = read("logic.js") + read("extension.js");
   const used = new Set();
   for (const m of source.matchAll(/\bt\("((?:[^"\\]|\\.)*)"/g)) used.add(m[1]);
   for (const m of read("logic.js").matchAll(/word: "([^"]+)"/g)) used.add(m[1]);
-  assert.ok(used.size >= 8, `found only ${used.size} strings`);
-  const missing = [...used].filter((s) => !(s in german));
-  assert.deepEqual(missing, []);
-});
+  return used;
+}
 
-test("package.nls.json and package.nls.de.json have the same keys as package.json uses", () => {
-  const pkg = read("package.json");
-  const keys = [...pkg.matchAll(/"%([^%]+)%"/g)].map((m) => m[1]).sort();
-  for (const file of ["package.nls.json", "package.nls.de.json"]) {
+for (const lang of LANGUAGES) {
+  test(`bundle.l10n.${lang}.json translates every t(...) string and reason word`, () => {
+    const bundle = JSON.parse(read(`l10n/bundle.l10n.${lang}.json`));
+    const used = usedStrings();
+    assert.ok(used.size >= 8, `found only ${used.size} strings`);
+    assert.deepEqual([...used].filter((s) => !(s in bundle)), []);
+    for (const [source, translated] of Object.entries(bundle)) {
+      const placeholders = (s) => (s.match(/\{\d+\}/g) || []).sort().join();
+      assert.equal(placeholders(translated), placeholders(source), `placeholders differ in "${source}"`);
+      assert.notEqual(translated.trim(), "", `empty translation for "${source}"`);
+    }
+  });
+}
+
+test("every package.nls file has the keys package.json uses", () => {
+  const keys = [...read("package.json").matchAll(/"%([^%]+)%"/g)].map((m) => m[1]).sort();
+  for (const file of ["package.nls.json", ...LANGUAGES.map((l) => `package.nls.${l}.json`)]) {
     assert.deepEqual(Object.keys(JSON.parse(read(file))).sort(), keys, file);
   }
 });

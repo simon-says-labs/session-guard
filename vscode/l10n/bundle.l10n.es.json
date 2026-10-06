@@ -1,0 +1,10 @@
+{
+  "needs approval": "por aprobar",
+  "asks you": "te pregunta",
+  "done": "listo",
+  "just now": "ahora mismo",
+  "{0} min ago": "desde hace {0} min",
+  "{0} h {1} min ago": "desde hace {0} h {1} min",
+  "Click: switch to this chat and dismiss": "Clic: cambiar a este chat y descartar la entrada",
+  "Open chat": "Abrir chat"
+}

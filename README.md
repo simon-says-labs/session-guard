@@ -19,7 +19,8 @@ question.
 > **Kurz auf Deutsch:** Session Guard zeigt in der VS-Code-Statusleiste, welche
 > Claude-Code-Sitzung auf dich wartet: rot bei Freigabe oder Frage, gelb, wenn eine Antwort
 > fertig ist. Ein Klick wechselt in die Sitzung. Ein Ton kommt nur, wenn dir eine Frage
-> gestellt wird. Die Oberfläche ist deutsch, wenn VS Code auf Deutsch läuft.
+> gestellt wird. Die Oberfläche ist deutsch, wenn VS Code auf Deutsch läuft (außerdem Englisch,
+> Französisch, Italienisch und Spanisch).
 
 ## Features
 
@@ -38,7 +39,7 @@ question.
   - The turn was started by a schedule (`/loop`, cron): nothing is shown.
 - Entries disappear when you answer, when Claude continues, when you click them, or (yellow
   only) after 60 minutes.
-- English and German UI.
+- User interface in English, German, French, Italian and Spanish (follows the VS Code display language).
 - Everything stays on your machine. No network access, no telemetry.
 
 ## How it works

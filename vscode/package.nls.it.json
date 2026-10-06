@@ -1,0 +1,5 @@
+{
+  "displayName": "Session Guard",
+  "description": "Mostra nella barra di stato, come voci colorate, le sessioni di Claude Code che ti stanno aspettando.",
+  "command.open": "Session Guard: Apri chat"
+}
