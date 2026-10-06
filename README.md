@@ -62,7 +62,7 @@ The repository contains two parts:
 - Claude Code with plugin support, used in the VS Code extension
 - VS Code 1.90 or later
 - Python 3.9 or later as `python3` on your `PATH` (the hook uses the standard library only)
-- macOS or Linux. Windows is untested (see [Limitations](#limitations)).
+- macOS or Linux. **Windows:** use the [`windows` branch](https://github.com/simon-says-labs/session-guard/tree/windows).
 
 ## Installation
 
@@ -113,8 +113,9 @@ Please read these before you rely on the extension:
   transcripts. Their format is not officially documented.
 - **Side bar setting.** Clicking an entry sets the Claude Code extension's preferred location to
   the side bar (`claudeCode.preferredLocation`).
-- **Windows** is untested. The hook calls `python3`, and the question sound is only implemented
-  for macOS (`afplay`) and Linux (`paplay`).
+- **Windows** has its own [`windows` branch](https://github.com/simon-says-labs/session-guard/tree/windows)
+  (hook via `python`, sound via `winsound`, state in `%LOCALAPPDATA%`). This branch calls `python3`
+  and plays the question sound on macOS (`afplay`) and Linux (`paplay`) only.
 - **Large transcripts.** The hook reads the transcript once per event. With transcripts of
   40 to 60 MB this takes about 0.75 s on an Apple M4 Pro.
 
