@@ -4,7 +4,7 @@ Thanks for your interest in Claude Wächter. Bug reports, ideas and pull request
 
 ## Reporting a bug
 
-Please open an [issue](https://github.com/SimonEckmiller/claude-waechter/issues) and include:
+Please open an [issue](https://github.com/simon-says-labs/claude-waechter/issues) and include:
 
 - your operating system, VS Code version and Claude Code extension version
 - what you expected and what happened

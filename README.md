@@ -64,14 +64,14 @@ The repository contains two parts:
 In a Claude Code session:
 
 ```
-/plugin marketplace add SimonEckmiller/claude-waechter
+/plugin marketplace add simon-says-labs/claude-waechter
 /plugin install claude-waechter@claude-waechter
 ```
 
 ### 2. VS Code extension
 
 Download `claude-waechter-<version>.vsix` from the
-[latest release](https://github.com/SimonEckmiller/claude-waechter/releases/latest) and run:
+[latest release](https://github.com/simon-says-labs/claude-waechter/releases/latest) and run:
 
 ```bash
 code --install-extension claude-waechter-0.2.0.vsix
@@ -115,7 +115,7 @@ Please read these before you rely on the extension:
 
 ```
 /plugin uninstall claude-waechter@claude-waechter
-code --uninstall-extension simon-eckmiller.claude-waechter
+code --uninstall-extension simon-says-labs.claude-waechter
 ```
 
 The state directory `~/.local/state/claude-waechter` can be removed afterwards.
@@ -134,6 +134,6 @@ The extension has no npm dependencies and needs no build step. See
 
 ## License
 
-[MIT](LICENSE) © 2026 Simon Eckmiller
+[MIT](LICENSE) © 2026 Simon Eckmiller · published by [Simon Says](https://github.com/simon-says-labs)
 
 This is an independent community project. It is not affiliated with or endorsed by Anthropic.

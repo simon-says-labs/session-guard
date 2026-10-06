@@ -5,10 +5,10 @@
   "description": "Tells you which Claude Code session is waiting for you: status files for the VS Code status bar, a sound only when you are asked a question.",
   "author": {
     "name": "Simon Eckmiller",
-    "url": "https://github.com/SimonEckmiller"
+    "url": "https://github.com/simon-says-labs"
   },
-  "homepage": "https://github.com/SimonEckmiller/claude-waechter",
-  "repository": "https://github.com/SimonEckmiller/claude-waechter",
+  "homepage": "https://github.com/simon-says-labs/claude-waechter",
+  "repository": "https://github.com/simon-says-labs/claude-waechter",
   "license": "MIT",
   "keywords": ["notifications", "status-bar", "vscode", "multi-session", "hooks"]
 }

@@ -20,4 +20,4 @@ First public release.
 - English and German user interface.
 - Plugin marketplace manifest, so the hook installs with `/plugin marketplace add`.
 
-[0.2.0]: https://github.com/SimonEckmiller/claude-waechter/releases/tag/v0.2.0
+[0.2.0]: https://github.com/simon-says-labs/claude-waechter/releases/tag/v0.2.0

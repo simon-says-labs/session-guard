@@ -3,19 +3,27 @@
   "displayName": "%displayName%",
   "description": "%description%",
   "version": "0.2.0",
-  "publisher": "simon-eckmiller",
+  "publisher": "simon-says-labs",
   "author": "Simon Eckmiller",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SimonEckmiller/claude-waechter"
+    "url": "https://github.com/simon-says-labs/claude-waechter"
   },
   "bugs": {
-    "url": "https://github.com/SimonEckmiller/claude-waechter/issues"
+    "url": "https://github.com/simon-says-labs/claude-waechter/issues"
   },
-  "homepage": "https://github.com/SimonEckmiller/claude-waechter#readme",
-  "keywords": ["claude", "claude code", "status bar", "notifications", "sessions"],
-  "categories": ["Other"],
+  "homepage": "https://github.com/simon-says-labs/claude-waechter#readme",
+  "keywords": [
+    "claude",
+    "claude code",
+    "status bar",
+    "notifications",
+    "sessions"
+  ],
+  "categories": [
+    "Other"
+  ],
   "engines": {
     "vscode": "^1.90.0"
   },

@@ -2,8 +2,8 @@
   "name": "claude-waechter",
   "description": "Claude Wächter: see which Claude Code session needs you.",
   "owner": {
-    "name": "Simon Eckmiller",
-    "url": "https://github.com/SimonEckmiller"
+    "name": "Simon Says",
+    "url": "https://github.com/simon-says-labs"
   },
   "plugins": [
     {

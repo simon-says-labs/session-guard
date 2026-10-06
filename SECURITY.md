@@ -7,7 +7,7 @@ Only the latest release receives fixes.
 ## Reporting a vulnerability
 
 Please do **not** open a public issue for security problems. Use
-[GitHub's private vulnerability reporting](https://github.com/SimonEckmiller/claude-waechter/security/advisories/new)
+[GitHub's private vulnerability reporting](https://github.com/simon-says-labs/claude-waechter/security/advisories/new)
 instead.
 
 ## What the project does with your data
