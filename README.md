@@ -12,6 +12,10 @@ question.
 
 *The status bar with a session waiting for approval (red) and a finished one (yellow), here with the German UI.*
 
+![Illustration of all three entry types in English](docs/status-bar-illustration.png)
+
+*All three entry types with the English UI: approval and question (red), finished turn (yellow).*
+
 > **Kurz auf Deutsch:** Claude Wächter zeigt in der VS-Code-Statusleiste, welche
 > Claude-Code-Sitzung auf dich wartet: rot bei Freigabe oder Frage, gelb, wenn eine Antwort
 > fertig ist. Ein Klick wechselt in die Sitzung. Ein Ton kommt nur, wenn dir eine Frage
