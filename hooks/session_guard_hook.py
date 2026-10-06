@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Claude Wächter hook: records which Claude Code session is waiting for you.
+"""Session Guard hook: records which Claude Code session is waiting for you.
 
 Registered by hooks/hooks.json for these events:
 
@@ -21,8 +21,8 @@ The hook must never block Claude Code: every error ends with exit code 0.
 Works with Python 3.9+, standard library only.
 
 Environment:
-    CLAUDE_WAECHTER_STATE   state directory (default: ~/.local/state/claude-waechter)
-    CLAUDE_WAECHTER_SOUND   "off" disables the sound
+    SESSION_GUARD_STATE   state directory (default: ~/.local/state/session-guard)
+    SESSION_GUARD_SOUND   "off" disables the sound
 
 Copyright (c) 2026 Simon Eckmiller. MIT License.
 """
@@ -62,7 +62,7 @@ SOUNDS = {
 
 
 def state_dir():
-    return os.environ.get("CLAUDE_WAECHTER_STATE") or os.path.expanduser("~/.local/state/claude-waechter")
+    return os.environ.get("SESSION_GUARD_STATE") or os.path.expanduser("~/.local/state/session-guard")
 
 
 def safe_id(session_id):
@@ -182,7 +182,7 @@ def recently_sounded(session_id):
 
 
 def play_sound():
-    if os.environ.get("CLAUDE_WAECHTER_SOUND", "").lower() == "off":
+    if os.environ.get("SESSION_GUARD_SOUND", "").lower() == "off":
         return
     command = SOUNDS.get(sys.platform)
     if not command or not shutil.which(command[0]) or not os.path.exists(command[1]):
@@ -194,7 +194,7 @@ def log(kind, line, sound):
     """One line per event, so you can check whether the hook fired and whether it played a sound."""
     folder = state_dir()
     os.makedirs(folder, exist_ok=True)
-    with open(os.path.join(folder, "waechter.log"), "a", encoding="utf-8") as f:
+    with open(os.path.join(folder, "session-guard.log"), "a", encoding="utf-8") as f:
         f.write("%s\t%s\t%s\tsound=%s\n" % (time.strftime("%Y-%m-%d %H:%M:%S"), kind, line,
                                             "yes" if sound else "no"))
 

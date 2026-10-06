@@ -1,6 +1,6 @@
-// Claude Wächter: pure logic without a vscode dependency, so it can be tested with `node --test`.
+// Session Guard: pure logic without a vscode dependency, so it can be tested with `node --test`.
 //
-// Reads the status files written by hooks/waechter_hook.py and decides from the session
+// Reads the status files written by hooks/session_guard_hook.py and decides from the session
 // transcript whether a session is still waiting: as soon as a user or assistant entry appears
 // after the event, you have answered or Claude is working again. After a Stop, Claude Code only
 // appends a `system` entry (stop_hook_summary), so a quiet transcript means "still waiting".
@@ -90,7 +90,7 @@ function waitingSessions(folder, nowMs = Date.now()) {
   return list.sort((a, b) => REASONS[a.reason].rank - REASONS[b.reason].rank || a.time - b.time);
 }
 
-// Same file naming as safe_id() in hooks/waechter_hook.py.
+// Same file naming as safe_id() in hooks/session_guard_hook.py.
 function statusFile(folder, sessionId) {
   return path.join(folder, (String(sessionId).replace(/[^A-Za-z0-9-]/g, "") || "no-id") + ".json");
 }

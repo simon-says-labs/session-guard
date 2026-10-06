@@ -1,14 +1,14 @@
 # Contributing
 
-Thanks for your interest in Claude Wächter. Bug reports, ideas and pull requests are welcome.
+Thanks for your interest in Session Guard. Bug reports, ideas and pull requests are welcome.
 
 ## Reporting a bug
 
-Please open an [issue](https://github.com/simon-says-labs/claude-waechter/issues) and include:
+Please open an [issue](https://github.com/simon-says-labs/session-guard/issues) and include:
 
 - your operating system, VS Code version and Claude Code extension version
 - what you expected and what happened
-- the matching lines from `~/.local/state/claude-waechter/waechter.log`
+- the matching lines from `~/.local/state/session-guard/session-guard.log`
 
 Do not paste session transcripts. They can contain your code and conversations.
 
@@ -27,11 +27,11 @@ To try your changes locally:
 
 ```
 /plugin marketplace add /path/to/your/clone
-/plugin install claude-waechter@claude-waechter
+/plugin install session-guard@simon-says
 ```
 
 ```bash
-code --install-extension dist/claude-waechter-<version>.vsix
+code --install-extension dist/session-guard-<version>.vsix
 ```
 
 ## Pull requests

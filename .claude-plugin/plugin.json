@@ -1,14 +1,14 @@
 {
-  "name": "claude-waechter",
-  "displayName": "Claude Wächter",
+  "name": "session-guard",
+  "displayName": "Session Guard",
   "version": "0.2.0",
   "description": "Tells you which Claude Code session is waiting for you: status files for the VS Code status bar, a sound only when you are asked a question.",
   "author": {
     "name": "Simon Eckmiller",
     "url": "https://github.com/simon-says-labs"
   },
-  "homepage": "https://github.com/simon-says-labs/claude-waechter",
-  "repository": "https://github.com/simon-says-labs/claude-waechter",
+  "homepage": "https://github.com/simon-says-labs/session-guard",
+  "repository": "https://github.com/simon-says-labs/session-guard",
   "license": "MIT",
   "keywords": ["notifications", "status-bar", "vscode", "multi-session", "hooks"]
 }

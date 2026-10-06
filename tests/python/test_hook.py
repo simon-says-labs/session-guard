@@ -1,4 +1,4 @@
-"""Tests for hooks/waechter_hook.py. Run: python3 -m unittest discover -s tests/python
+"""Tests for hooks/session_guard_hook.py. Run: python3 -m unittest discover -s tests/python
 
 Every test uses its own temporary state directory and runs the hook as a subprocess,
 exactly as Claude Code does. Sound is disabled.
@@ -11,7 +11,7 @@ import tempfile
 import time
 import unittest
 
-HOOK = os.path.join(os.path.dirname(__file__), "..", "..", "hooks", "waechter_hook.py")
+HOOK = os.path.join(os.path.dirname(__file__), "..", "..", "hooks", "session_guard_hook.py")
 
 
 class HookTest(unittest.TestCase):
@@ -23,7 +23,7 @@ class HookTest(unittest.TestCase):
         self._tmp.cleanup()
 
     def run_hook(self, event, raw=None):
-        env = dict(os.environ, CLAUDE_WAECHTER_STATE=self.state, CLAUDE_WAECHTER_SOUND="off")
+        env = dict(os.environ, SESSION_GUARD_STATE=self.state, SESSION_GUARD_SOUND="off")
         result = subprocess.run([sys.executable, HOOK], input=raw if raw is not None else json.dumps(event),
                                 text=True, capture_output=True, env=env, timeout=10)
         return result.returncode
@@ -43,7 +43,7 @@ class HookTest(unittest.TestCase):
         return path
 
     def sounded(self):
-        path = os.path.join(self.state, "waechter.log")
+        path = os.path.join(self.state, "session-guard.log")
         if not os.path.exists(path):
             return []
         with open(path, encoding="utf-8") as f:

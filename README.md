@@ -1,14 +1,14 @@
-# Claude Wächter
+# Session Guard
 
 **See at a glance which Claude Code session needs you.**
 
 You run several Claude Code chats side by side in VS Code. One asks a question, another
 waits for an approval, a third has finished, and you only notice when you click through
-all of them. Claude Wächter (German for *guardian*) puts every session that is waiting for
+all of them. Session Guard puts every session that is waiting for
 you into the VS Code status bar, and plays a sound only when you are actually asked a
 question.
 
-![Status bar with one red and one yellow Claude Wächter entry](docs/screenshot.png)
+![Status bar with one red and one yellow Session Guard entry](docs/screenshot.png)
 
 *The status bar with a session waiting for approval (red) and a finished one (yellow), here with the German UI.*
 
@@ -16,7 +16,7 @@ question.
 
 *All three entry types with the English UI: approval and question (red), finished turn (yellow).*
 
-> **Kurz auf Deutsch:** Claude Wächter zeigt in der VS-Code-Statusleiste, welche
+> **Kurz auf Deutsch:** Session Guard zeigt in der VS-Code-Statusleiste, welche
 > Claude-Code-Sitzung auf dich wartet: rot bei Freigabe oder Frage, gelb, wenn eine Antwort
 > fertig ist. Ein Klick wechselt in die Sitzung. Ein Ton kommt nur, wenn dir eine Frage
 > gestellt wird. Die Oberfläche ist deutsch, wenn VS Code auf Deutsch läuft.
@@ -44,7 +44,7 @@ question.
 ## How it works
 
 ```
-Claude Code session ──hook──▶ ~/.local/state/claude-waechter/sessions/<id>.json ──▶ VS Code extension ──▶ status bar
+Claude Code session ──hook──▶ ~/.local/state/session-guard/sessions/<id>.json ──▶ VS Code extension ──▶ status bar
                                                                        ▲
                               session transcript (~/.claude/projects/…) ┘  "is it still waiting?"
 ```
@@ -70,17 +70,17 @@ The repository contains two parts:
 In a Claude Code session:
 
 ```
-/plugin marketplace add simon-says-labs/claude-waechter
-/plugin install claude-waechter@claude-waechter
+/plugin marketplace add simon-says-labs/session-guard
+/plugin install session-guard@simon-says
 ```
 
 ### 2. VS Code extension
 
-Download `claude-waechter-<version>.vsix` from the
-[latest release](https://github.com/simon-says-labs/claude-waechter/releases/latest) and run:
+Download `session-guard-<version>.vsix` from the
+[latest release](https://github.com/simon-says-labs/session-guard/releases/latest) and run:
 
 ```bash
-code --install-extension claude-waechter-0.2.0.vsix
+code --install-extension session-guard-0.2.0.vsix
 ```
 
 If you use [VS Code profiles](https://code.visualstudio.com/docs/configure/profiles), install
@@ -93,10 +93,10 @@ Reload the VS Code window afterwards (**Developer: Reload Window**).
 
 | Environment variable | Effect |
 |---|---|
-| `CLAUDE_WAECHTER_SOUND=off` | No sound at all |
-| `CLAUDE_WAECHTER_STATE=/path` | Different state directory (set it for Claude Code **and** VS Code) |
+| `SESSION_GUARD_SOUND=off` | No sound at all |
+| `SESSION_GUARD_STATE=/path` | Different state directory (set it for Claude Code **and** VS Code) |
 
-Every event is logged with `sound=yes|no` in `~/.local/state/claude-waechter/waechter.log`,
+Every event is logged with `sound=yes|no` in `~/.local/state/session-guard/session-guard.log`,
 so you can check why a sound was or was not played.
 
 ## Limitations
@@ -105,7 +105,7 @@ Please read these before you rely on the extension:
 
 - **Internal commands.** The click uses internal commands of the Claude Code VS Code extension
   (`claude-vscode.sidebar.open` and `claude-vscode.editor.open`), last checked with version
-  2.1.288. They are not a public API and may change. If they fail, Claude Wächter falls back to
+  2.1.288. They are not a public API and may change. If they fail, Session Guard falls back to
   the documented URI `vscode://anthropic.claude-code/open?session=<id>`, which may open the
   session in a new tab instead.
 - **Transcript format.** Whether a session is still waiting is read from Claude Code's session
@@ -120,18 +120,18 @@ Please read these before you rely on the extension:
 ## Uninstall
 
 ```
-/plugin uninstall claude-waechter@claude-waechter
-code --uninstall-extension simon-says-labs.claude-waechter
+/plugin uninstall session-guard@simon-says
+code --uninstall-extension simon-says-labs.session-guard
 ```
 
-The state directory `~/.local/state/claude-waechter` can be removed afterwards.
+The state directory `~/.local/state/session-guard` can be removed afterwards.
 
 ## Development
 
 ```bash
 python3 -m unittest discover -s tests/python   # hook
 node --test tests/node/*.test.js                        # extension
-python3 vscode/build_vsix.py                   # writes dist/claude-waechter-<version>.vsix
+python3 vscode/build_vsix.py                   # writes dist/session-guard-<version>.vsix
 claude plugin validate .                       # plugin and marketplace manifests
 ```
 

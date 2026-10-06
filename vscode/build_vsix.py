@@ -2,8 +2,8 @@
 """Packages the VS Code extension as a .vsix without npm or vsce.
 
 Usage:   python3 vscode/build_vsix.py
-Output:  dist/claude-waechter-<version>.vsix
-Install: code --install-extension dist/claude-waechter-<version>.vsix
+Output:  dist/session-guard-<version>.vsix
+Install: code --install-extension dist/session-guard-<version>.vsix
 
 Copyright (c) 2026 Simon Eckmiller. MIT License.
 """

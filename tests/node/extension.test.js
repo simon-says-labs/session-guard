@@ -8,8 +8,8 @@ const path = require("node:path");
 const Module = require("node:module");
 const { format } = require("../../vscode/logic");
 
-const state = fs.mkdtempSync(path.join(os.tmpdir(), "waechter-ext-"));
-process.env.CLAUDE_WAECHTER_STATE = state;
+const state = fs.mkdtempSync(path.join(os.tmpdir(), "session-guard-ext-"));
+process.env.SESSION_GUARD_STATE = state;
 const sessions = path.join(state, "sessions");
 fs.mkdirSync(sessions, { recursive: true });
 
@@ -98,7 +98,7 @@ test("German UI when VS Code runs in German", (t) => {
 test("click falls back to the documented URI when the internal command is missing", async () => {
   const real = fakeVscode.commands.executeCommand;
   fakeVscode.commands.executeCommand = async () => { throw new Error("command not found"); };
-  await commands["claudeWaechter.open"]("abc-123");
+  await commands["sessionGuard.open"]("abc-123");
   fakeVscode.commands.executeCommand = real;
   assert.deepEqual(calls.at(-1), ["external", "vscode://anthropic.claude-code/open?session=abc-123"]);
 });

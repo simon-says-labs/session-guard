@@ -11,7 +11,7 @@ const NOW = Date.parse("2026-10-05T15:00:00Z");
 const EVENT_S = (NOW - 60_000) / 1000; // event one minute ago
 
 function folder() {
-  return fs.mkdtempSync(path.join(os.tmpdir(), "waechter-"));
+  return fs.mkdtempSync(path.join(os.tmpdir(), "session-guard-"));
 }
 
 function line(type, timeMs) {

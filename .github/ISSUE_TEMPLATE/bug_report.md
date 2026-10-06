@@ -12,9 +12,9 @@ labels: bug
 - OS:
 - VS Code version:
 - Claude Code extension version:
-- Claude Wächter version:
+- Session Guard version:
 
-**Log lines** (from `~/.local/state/claude-waechter/waechter.log`, no transcripts please)
+**Log lines** (from `~/.local/state/session-guard/session-guard.log`, no transcripts please)
 
 ```
 ```

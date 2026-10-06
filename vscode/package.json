@@ -1,5 +1,5 @@
 {
-  "name": "claude-waechter",
+  "name": "session-guard",
   "displayName": "%displayName%",
   "description": "%description%",
   "version": "0.2.0",
@@ -8,12 +8,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/simon-says-labs/claude-waechter"
+    "url": "https://github.com/simon-says-labs/session-guard"
   },
   "bugs": {
-    "url": "https://github.com/simon-says-labs/claude-waechter/issues"
+    "url": "https://github.com/simon-says-labs/session-guard/issues"
   },
-  "homepage": "https://github.com/simon-says-labs/claude-waechter#readme",
+  "homepage": "https://github.com/simon-says-labs/session-guard#readme",
   "keywords": [
     "claude",
     "claude code",
@@ -35,7 +35,7 @@
   "contributes": {
     "commands": [
       {
-        "command": "claudeWaechter.open",
+        "command": "sessionGuard.open",
         "title": "%command.open%"
       }
     ]
