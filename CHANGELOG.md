@@ -4,6 +4,12 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses
 [Semantic Versioning](https://semver.org/).
 
+## [0.3.0-windows] - 2026-10-06 (branch `windows`)
+
+### Added
+- Windows support: hook started in exec form with `python`, question sound via `winsound`, state in
+  `%LOCALAPPDATA%\session-guard`, CI on `windows-latest` including a real hook run.
+
 ## [0.3.0] - 2026-10-06
 
 ### Added

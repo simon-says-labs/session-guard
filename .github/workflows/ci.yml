@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, windows]
   pull_request:
 
 permissions:
@@ -13,8 +13,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
@@ -24,14 +27,19 @@ jobs:
         with:
           node-version: "22"
       - name: Hook tests
-        run: python3 -m unittest discover -s tests/python -v
+        run: python -m unittest discover -s tests/python -v
       - name: Extension tests
         run: node --test tests/node/*.test.js
+      - name: Hook runs as Claude Code calls it (exec form, plain "python")
+        run: |
+          echo '{"hook_event_name":"PreToolUse","tool_name":"AskUserQuestion","session_id":"ci","tool_input":{"questions":[{"question":"CI?"}]}}' \
+            | SESSION_GUARD_STATE="$RUNNER_TEMP/sg" SESSION_GUARD_SOUND=off python hooks/session_guard_hook.py
+          python -c "import json,os;s=json.load(open(os.path.join(os.environ['RUNNER_TEMP'],'sg','sessions','ci.json')));assert s['reason']=='question',s;print('status file ok:',s['reason'])"
       - name: Build VSIX
-        run: python3 vscode/build_vsix.py
+        run: python vscode/build_vsix.py
       - name: Upload VSIX
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v7
         with:
-          name: session-guard-vsix
+          name: session-guard-vsix-windows
           path: dist/*.vsix

@@ -1,4 +1,8 @@
-# Session Guard
+# Session Guard (Windows)
+
+> **This is the `windows` branch.** It calls the hook with `python` instead of `python3`, plays the
+> question sound with Windows' own `winsound`, and keeps its state in `%LOCALAPPDATA%\session-guard`.
+> For macOS and Linux use the [`main` branch](https://github.com/simon-says-labs/session-guard).
 
 **See at a glance which Claude Code session needs you.**
 
@@ -45,7 +49,7 @@ question.
 ## How it works
 
 ```
-Claude Code session ──hook──▶ ~/.local/state/session-guard/sessions/<id>.json ──▶ VS Code extension ──▶ status bar
+Claude Code session ──hook──▶ %LOCALAPPDATA%\session-guard\sessions\<id>.json ──▶ VS Code extension ──▶ status bar
                                                                        ▲
                               session transcript (~/.claude/projects/…) ┘  "is it still waiting?"
 ```
@@ -61,19 +65,22 @@ The repository contains two parts:
 
 - Claude Code with plugin support, used in the VS Code extension
 - VS Code 1.90 or later
-- Python 3.9 or later as `python3` on your `PATH` (the hook uses the standard library only)
-- macOS or Linux. Windows is untested (see [Limitations](#limitations)).
+- Python 3.9 or later as `python` on your `PATH` (the hook uses the standard library only)
+- Windows 10 or 11 (this branch). macOS and Linux: `main` branch.
 
 ## Installation
 
 ### 1. Claude Code plugin (the hook)
 
-In a Claude Code session:
+In a Claude Code session, add the marketplace **from this branch** (`#windows`):
 
 ```
-/plugin marketplace add simon-says-labs/session-guard
+/plugin marketplace add simon-says-labs/session-guard#windows
 /plugin install session-guard@simon-says
 ```
+
+The hook needs Python 3.9 or later as `python` on your `PATH` (the installer from python.org offers
+“Add python.exe to PATH”). It is started directly, without Git Bash or PowerShell.
 
 ### 2. VS Code extension
 
@@ -97,7 +104,7 @@ Reload the VS Code window afterwards (**Developer: Reload Window**).
 | `SESSION_GUARD_SOUND=off` | No sound at all |
 | `SESSION_GUARD_STATE=/path` | Different state directory (set it for Claude Code **and** VS Code) |
 
-Every event is logged with `sound=yes|no` in `~/.local/state/session-guard/session-guard.log`,
+Every event is logged with `sound=yes|no` in `%LOCALAPPDATA%\session-guard\session-guard.log`,
 so you can check why a sound was or was not played.
 
 ## Limitations
@@ -113,8 +120,8 @@ Please read these before you rely on the extension:
   transcripts. Their format is not officially documented.
 - **Side bar setting.** Clicking an entry sets the Claude Code extension's preferred location to
   the side bar (`claudeCode.preferredLocation`).
-- **Windows** is untested. The hook calls `python3`, and the question sound is only implemented
-  for macOS (`afplay`) and Linux (`paplay`).
+- **Windows** is tested in CI on `windows-latest` (hook, extension, VSIX build). Using it inside
+  Claude Code on a real Windows machine has not been tested yet, feedback is welcome.
 - **Large transcripts.** The hook reads the transcript once per event. With transcripts of
   40 to 60 MB this takes about 0.75 s on an Apple M4 Pro.
 
@@ -125,7 +132,7 @@ Please read these before you rely on the extension:
 code --uninstall-extension simon-says-labs.session-guard
 ```
 
-The state directory `~/.local/state/session-guard` can be removed afterwards.
+The state directory `%LOCALAPPDATA%\session-guard` can be removed afterwards.
 
 ## Development
 

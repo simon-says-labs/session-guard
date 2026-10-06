@@ -7,12 +7,9 @@ const vscode = require("vscode");
 const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
-const { waitingSessions, markSeen, label, waitTime } = require("./logic");
+const { waitingSessions, markSeen, label, waitTime, stateRoot } = require("./logic");
 
-const FOLDER = path.join(
-  process.env.SESSION_GUARD_STATE || path.join(os.homedir(), ".local", "state", "session-guard"),
-  "sessions"
-);
+const FOLDER = path.join(stateRoot(process.platform, process.env, os.homedir()), "sessions");
 const POLL_MS = 2000;
 const t = (message, ...args) => vscode.l10n.t(message, ...args);
 
