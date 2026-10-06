@@ -1,7 +1,7 @@
 {
   "name": "session-guard",
   "displayName": "Session Guard",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Tells you which Claude Code session is waiting for you: status files for the VS Code status bar, a sound only when you are asked a question.",
   "author": {
     "name": "Simon Eckmiller",

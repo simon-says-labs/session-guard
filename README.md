@@ -87,7 +87,7 @@ In einer Claude-Code-Sitzung:
 laden und ausführen:
 
 ```bash
-code --install-extension session-guard-0.3.0.vsix
+code --install-extension session-guard-*.vsix
 ```
 
 Wer [VS-Code-Profile](https://code.visualstudio.com/docs/configure/profiles) nutzt, installiert sie in jedes Profil,
@@ -221,7 +221,7 @@ Download `session-guard-<version>.vsix` from the
 [latest release](https://github.com/simon-says-labs/session-guard/releases/latest) and run:
 
 ```bash
-code --install-extension session-guard-0.3.0.vsix
+code --install-extension session-guard-*.vsix
 ```
 
 If you use [VS Code profiles](https://code.visualstudio.com/docs/configure/profiles), install

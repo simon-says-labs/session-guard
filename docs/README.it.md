@@ -79,7 +79,7 @@ Scarica `session-guard-<version>.vsix` dall'
 [ultima release](https://github.com/simon-says-labs/session-guard/releases/latest) ed esegui:
 
 ```bash
-code --install-extension session-guard-0.3.0.vsix
+code --install-extension session-guard-*.vsix
 ```
 
 Se usi i [profili di VS Code](https://code.visualstudio.com/docs/configure/profiles), installa l'estensione in ogni
