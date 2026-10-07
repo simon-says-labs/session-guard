@@ -59,8 +59,10 @@ Il repository è composto da due parti:
 
 - Claude Code con supporto per i plugin, usato nell'estensione di VS Code
 - VS Code 1.90 o versione successiva
-- Python 3.9 o versione successiva, disponibile come `python3` nel `PATH` (l'hook usa solo la libreria standard)
-- macOS o Linux. **Windows:** usa il [branch `windows`](https://github.com/simon-says-labs/session-guard/tree/windows).
+- Python 3.9 o versione successiva nel `PATH`: come `python3` su macOS e Linux, come `python` su Windows (l'hook
+  usa solo la libreria standard)
+- macOS, Linux o Windows 10/11. **Windows:** installa il plugin dal [branch `windows`](https://github.com/simon-says-labs/session-guard/tree/windows)
+  (vedi sotto); l'estensione VS Code è la stessa su tutti i sistemi.
 
 ## Installazione
 
@@ -98,8 +100,8 @@ nessuno).
 | `SESSION_GUARD_SOUND=off` | Nessun suono |
 | `SESSION_GUARD_STATE=/percorso` | Cartella di stato diversa (impostala sia per Claude Code **sia** per VS Code) |
 
-Ogni evento viene registrato con `sound=yes|no` in `~/.local/state/session-guard/session-guard.log`, così puoi
-verificare perché un suono è stato riprodotto o meno.
+Ogni evento viene registrato con `sound=yes|no` in `~/.local/state/session-guard/session-guard.log` (Windows:
+`%LOCALAPPDATA%\session-guard\session-guard.log`), così puoi verificare perché un suono è stato riprodotto o meno.
 
 ## Limitazioni
 
@@ -113,9 +115,14 @@ Leggile prima di fare affidamento sull'estensione:
   sessioni di Claude Code. Il loro formato non è documentato ufficialmente.
 - **Impostazione della barra laterale.** Un clic su una voce imposta la posizione preferita dell'estensione
   Claude Code sulla barra laterale (`claudeCode.preferredLocation`).
-- **Windows** ha un proprio [branch `windows`](https://github.com/simon-says-labs/session-guard/tree/windows) (hook
-  tramite `python`, suono tramite `winsound`, stato in `%LOCALAPPDATA%`). Questo branch chiama `python3` e riproduce
-  il suono delle domande solo su macOS (`afplay`) e Linux (`paplay`).
+- **Su Windows il plugin richiede il [branch `windows`](https://github.com/simon-says-labs/session-guard/tree/windows).** `hooks/hooks.json` vale per
+  tutti i sistemi e nessun comando funziona ovunque: su Windows `python3` è spesso solo il segnaposto del Microsoft
+  Store (codice di uscita 49), su macOS di solito manca `python`. Il branch differisce da `main` solo in questo file
+  (avvia `python` senza shell, Git Bash non serve); la CI lo verifica. Installazione:
+  `/plugin marketplace add simon-says-labs/session-guard#windows`, poi `/plugin install session-guard@simon-says`.
+  Se Python non è installato, anche `python` è solo quel segnaposto e l'hook resta muto; installa Python da
+  python.org con "Add python.exe to PATH". Su Windows il suono passa da `winsound` e lo stato si trova in
+  `%LOCALAPPDATA%\session-guard`.
 - **Cronologie di grandi dimensioni.** L'hook legge la cronologia una volta per evento. Con cronologie da 40 a 60 MB
   questo richiede circa 0,75 s su un Apple M4 Pro.
 
@@ -126,7 +133,8 @@ Leggile prima di fare affidamento sull'estensione:
 code --uninstall-extension simon-says-labs.session-guard
 ```
 
-Dopodiché puoi rimuovere la cartella di stato `~/.local/state/session-guard`.
+Dopodiché puoi rimuovere la cartella di stato `~/.local/state/session-guard` (Windows:
+`%LOCALAPPDATA%\session-guard`).
 
 ## Sviluppo
 

@@ -169,5 +169,39 @@ class HookTest(unittest.TestCase):
         self.assertEqual(self.sounded(), ["AskUserQuestion", "elicitation_dialog"])
 
 
+class StateDirTest(unittest.TestCase):
+    """The state directory: %LOCALAPPDATA% on Windows, ~/.local/state elsewhere."""
+
+    def load(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("hook", HOOK)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module
+
+    def test_windows_uses_localappdata(self):
+        hook = self.load()
+        self.assertEqual(hook.default_state_dir("win32", {"LOCALAPPDATA": r"C:\Users\me\AppData\Local"}, "/home/me"),
+                         os.path.join(r"C:\Users\me\AppData\Local", "session-guard"))
+
+    def test_windows_without_localappdata_falls_back_to_home(self):
+        hook = self.load()
+        self.assertEqual(hook.default_state_dir("win32", {}, "/home/me"),
+                         os.path.join("/home/me", ".local", "state", "session-guard"))
+
+    def test_macos_and_linux_use_local_state(self):
+        hook = self.load()
+        for platform in ("darwin", "linux"):
+            self.assertEqual(hook.default_state_dir(platform, {"LOCALAPPDATA": "x"}, "/home/me"),
+                             os.path.join("/home/me", ".local", "state", "session-guard"))
+
+    def test_sound_command_per_platform(self):
+        hook = self.load()
+        self.assertEqual(hook.sound_backend("win32"), "winsound")
+        self.assertEqual(hook.sound_backend("darwin"), "afplay")
+        self.assertEqual(hook.sound_backend("linux"), "paplay")
+        self.assertIsNone(hook.sound_backend("aix"))
+
+
 if __name__ == "__main__":
     unittest.main()

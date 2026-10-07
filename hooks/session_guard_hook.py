@@ -21,7 +21,8 @@ The hook must never block Claude Code: every error ends with exit code 0.
 Works with Python 3.9+, standard library only.
 
 Environment:
-    SESSION_GUARD_STATE   state directory (default: ~/.local/state/session-guard)
+    SESSION_GUARD_STATE   state directory (default: %LOCALAPPDATA%\\session-guard on Windows,
+                          ~/.local/state/session-guard elsewhere)
     SESSION_GUARD_SOUND   "off" disables the sound
 
 Copyright (c) 2026 Simon Eckmiller. MIT License.
@@ -61,8 +62,22 @@ SOUNDS = {
 }
 
 
+def default_state_dir(platform, env, home):
+    """%LOCALAPPDATA%\\session-guard on Windows, ~/.local/state/session-guard elsewhere."""
+    if platform == "win32" and env.get("LOCALAPPDATA"):
+        return os.path.join(env["LOCALAPPDATA"], "session-guard")
+    return os.path.join(home, ".local", "state", "session-guard")
+
+
 def state_dir():
-    return os.environ.get("SESSION_GUARD_STATE") or os.path.expanduser("~/.local/state/session-guard")
+    return os.environ.get("SESSION_GUARD_STATE") or default_state_dir(sys.platform, os.environ, os.path.expanduser("~"))
+
+
+def sound_backend(platform):
+    if platform == "win32":
+        return "winsound"
+    command = SOUNDS.get(platform)
+    return command[0] if command else None
 
 
 def safe_id(session_id):
@@ -183,6 +198,10 @@ def recently_sounded(session_id):
 
 def play_sound():
     if os.environ.get("SESSION_GUARD_SOUND", "").lower() == "off":
+        return
+    if sound_backend(sys.platform) == "winsound":
+        import winsound  # standard library on Windows only
+        winsound.MessageBeep(winsound.MB_ICONQUESTION)
         return
     command = SOUNDS.get(sys.platform)
     if not command or not shutil.which(command[0]) or not os.path.exists(command[1]):

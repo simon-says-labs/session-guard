@@ -121,4 +121,11 @@ function waitTime(s, nowMs = Date.now(), t = format) {
   return t("{0} h {1} min ago", Math.floor(minutes / 60), minutes % 60);
 }
 
-module.exports = { waitingSessions, stillWaiting, markSeen, label, waitTime, format, MAX_AGE_HOURS, DONE_MAX_AGE_MINUTES };
+// %LOCALAPPDATA%\\session-guard on Windows, ~/.local/state/session-guard elsewhere; same rule as the hook.
+function stateRoot(platform, env, home) {
+  if (env.SESSION_GUARD_STATE) return env.SESSION_GUARD_STATE;
+  if (platform === "win32" && env.LOCALAPPDATA) return path.join(env.LOCALAPPDATA, "session-guard");
+  return path.join(home, ".local", "state", "session-guard");
+}
+
+module.exports = { stateRoot, waitingSessions, stillWaiting, markSeen, label, waitTime, format, MAX_AGE_HOURS, DONE_MAX_AGE_MINUTES };

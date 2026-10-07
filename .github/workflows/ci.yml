@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, windows]
   pull_request:
 
 permissions:
@@ -13,8 +13,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
@@ -24,14 +27,33 @@ jobs:
         with:
           node-version: "22"
       - name: Hook tests
-        run: python3 -m unittest discover -s tests/python -v
+        run: python -m unittest discover -s tests/python -v
       - name: Extension tests
         run: node --test tests/node/*.test.js
+      # Runs the hook exactly as hooks/hooks.json tells Claude Code to: exec form (command + args) without a
+      # shell, shell form through sh. main targets macOS and Linux, the windows branch targets Windows.
+      - name: Hook runs as Claude Code calls it
+        if: runner.os != 'Windows' || github.ref_name == 'windows' || github.base_ref == 'windows'
+        run: python tests/run_hooks_json.py
       - name: Build VSIX
-        run: python3 vscode/build_vsix.py
+        run: python vscode/build_vsix.py
       - name: Upload VSIX
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v7
         with:
           name: session-guard-vsix
           path: dist/*.vsix
+
+  # The windows branch is main plus one file. Anything else that differs is drift.
+  windows-branch-drift:
+    if: github.ref_name == 'windows' || github.base_ref == 'windows'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Only hooks/hooks.json differs from main
+        run: |
+          changed=$(git diff --name-only origin/main HEAD)
+          echo "differs from main: ${changed:-nothing}"
+          test "$changed" = "hooks/hooks.json"

@@ -151,3 +151,12 @@ test("waitTime formats minutes and hours", () => {
 test("format replaces placeholders like vscode.l10n.t", () => {
   assert.equal(format("{0} h {1} min ago", 2, 5), "2 h 5 min ago");
 });
+
+test("state folder: %LOCALAPPDATA% on Windows, ~/.local/state elsewhere", () => {
+  const { stateRoot } = require("../../vscode/logic");
+  assert.equal(stateRoot("win32", { LOCALAPPDATA: "C:\\Users\\me\\AppData\\Local" }, "C:\\Users\\me"),
+    path.join("C:\\Users\\me\\AppData\\Local", "session-guard"));
+  assert.equal(stateRoot("win32", {}, "/home/me"), path.join("/home/me", ".local", "state", "session-guard"));
+  assert.equal(stateRoot("darwin", { LOCALAPPDATA: "x" }, "/home/me"), path.join("/home/me", ".local", "state", "session-guard"));
+  assert.equal(stateRoot("linux", { SESSION_GUARD_STATE: "/custom" }, "/home/me"), "/custom");
+});
