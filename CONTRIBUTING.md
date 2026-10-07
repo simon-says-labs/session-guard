@@ -9,6 +9,7 @@ Please open an [issue](https://github.com/simon-says-labs/session-guard/issues) 
 - your operating system, VS Code version and Claude Code extension version
 - what you expected and what happened
 - the matching lines from `~/.local/state/session-guard/session-guard.log`
+  (Windows: `%LOCALAPPDATA%\session-guard\session-guard.log`)
 
 Do not paste session transcripts. They can contain your code and conversations.
 

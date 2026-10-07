@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -30,16 +30,30 @@ jobs:
         run: python -m unittest discover -s tests/python -v
       - name: Extension tests
         run: node --test tests/node/*.test.js
-      - name: Hook runs as Claude Code calls it (exec form, plain "python")
-        run: |
-          echo '{"hook_event_name":"PreToolUse","tool_name":"AskUserQuestion","session_id":"ci","tool_input":{"questions":[{"question":"CI?"}]}}' \
-            | SESSION_GUARD_STATE="$RUNNER_TEMP/sg" SESSION_GUARD_SOUND=off python hooks/session_guard_hook.py
-          python -c "import json,os;s=json.load(open(os.path.join(os.environ['RUNNER_TEMP'],'sg','sessions','ci.json')));assert s['reason']=='question',s;print('status file ok:',s['reason'])"
+      # Runs the hook exactly as hooks/hooks.json tells Claude Code to: exec form (command + args) without a
+      # shell, shell form through sh. main targets macOS and Linux, the windows branch targets Windows.
+      - name: Hook runs as Claude Code calls it
+        if: runner.os != 'Windows' || github.ref_name == 'windows' || github.base_ref == 'windows'
+        run: python tests/run_hooks_json.py
       - name: Build VSIX
         run: python vscode/build_vsix.py
       - name: Upload VSIX
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v7
         with:
-          name: session-guard-vsix-windows
+          name: session-guard-vsix
           path: dist/*.vsix
+
+  # The windows branch is main plus one file. Anything else that differs is drift.
+  windows-branch-drift:
+    if: github.ref_name == 'windows' || github.base_ref == 'windows'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Only hooks/hooks.json differs from main
+        run: |
+          changed=$(git diff --name-only origin/main HEAD)
+          echo "differs from main: ${changed:-nothing}"
+          test "$changed" = "hooks/hooks.json"
