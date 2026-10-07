@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/social-preview.png" width="100%" alt="Session Guard: see which Claude Code session needs you"></p>
+
 # Session Guard
 
 <p align="center"><b><a href="#deutsch">🇩🇪 Deutsch</a> · <a href="#english">🇬🇧 English</a> · <a href="docs/README.fr.md">🇫🇷 Français</a> · <a href="docs/README.it.md">🇮🇹 Italiano</a> · <a href="docs/README.es.md">🇪🇸 Español</a></b></p>
